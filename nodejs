@@ -1,0 +1,159 @@
+1. Write a Node.js program that creates a simple HTTP server. When a client sends a request to the server, the server should respond with a "Hello, Students!" message.
+const http = require('http');
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+  // Set the response HTTP header with HTTP status and content type
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+  // Send the response body
+  res.end('Hello, Students!\n');
+});
+
+// The server listens on port 3000
+server.listen(3000, () => {
+  console.log('Server is listening on port 3000');
+});
+
+2. Write a Node.js program that reads content from a file named "input.txt" and writes the content to a new file named "output.txt".
+const fs = require('fs');
+// Read content from 'input.txt'
+fs.readFile('input.txt', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading input.txt:', err);
+    return;
+  }
+  console.log('Content of input.txt:', data);
+
+  // Write the content to 'output.txt'
+  fs.writeFile('output.txt', data, (err) => {
+    if (err) {
+      console.error('Error writing to output.txt:', err);
+      return;
+    }
+    console.log('Content successfully written to output.txt');
+  });
+});
+
+3. Write a Node.js program that creates an HTTP server and handles different routes. The server should respond with "Hello, World!" for the root route ("/") and "Page Not Found" for any other route.
+const http = require('http');
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+  // Check the request URL
+  if (req.url === '/') {
+    // Root route ("/")
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello, World!\n');
+  } else {
+    // Any other route
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Page Not Found\n');
+  }
+});
+// The server listens on port 3000
+server.listen(3000, () => {
+  console.log('Server is listening on port 3000');
+});
+
+4. Write a Node.js program that uses the OS module to retrieve information about the current operating system.
+const os = require('os');
+// Get the OS platform (e.g., 'win32', 'darwin', 'linux')
+const platform = os.platform();
+console.log('Operating System Platform:', platform);
+
+// Get the OS CPU architecture (e.g., 'x64', 'arm', 'ia32')
+const architecture = os.arch();
+console.log('CPU Architecture:', architecture);
+
+// Get the total system memory in bytes
+const totalMemory = os.totalmem();
+console.log('Total System Memory:', totalMemory, 'bytes');
+
+// Get the free system memory in bytes
+const freeMemory = os.freemem();
+console.log('Free System Memory:', freeMemory, 'bytes');
+
+// Get the system uptime in seconds
+const uptime = os.uptime();
+console.log('System Uptime:', uptime, 'seconds');
+
+// Get the hostname of the operating system
+const hostname = os.hostname();
+console.log('Hostname:', hostname);
+
+// Get information about each CPU/core installed
+const cpus = os.cpus();
+console.log('CPU Info:', cpus);
+
+// Get the network interfaces
+const networkInterfaces = os.networkInterfaces();
+console.log('Network Interfaces:', networkInterfaces);
+
+5. Write a Node.js program that uses the Path module to manipulate file paths.
+const path = require('path');
+
+// Define a sample file path
+const filePath = '/Users/username/Documents/project/file.txt';
+
+// Get the directory name of the file path
+const dirName = path.dirname(filePath);
+console.log('Directory Name:', dirName);
+
+// Get the base name (file name) of the file path
+const baseName = path.basename(filePath);
+console.log('Base Name:', baseName);
+
+// Get the file extension of the file path
+const extName = path.extname(filePath);
+console.log('Extension Name:', extName);
+
+// Join paths to create a new path
+const newPath = path.join('/Users/username', 'Documents', 'project', 'newfile.txt');
+console.log('Joined Path:', newPath);
+
+// Resolve an absolute path from a relative path
+const relativePath = '../project/file.txt';
+const absolutePath = path.resolve(relativePath);
+console.log('Resolved Absolute Path:', absolutePath);
+
+// Normalize a path by removing redundant elements
+const messyPath = '/Users/username/Documents/../Documents/project/./file.txt';
+const normalizedPath = path.normalize(messyPath);
+console.log('Normalized Path:', normalizedPath);
+
+6. Create a command-line Node.js program that simulates a basic calculator. The program should allow users to perform addition, subtraction, multiplication, and division operations on two numbers.
+// Import the 'process' module for command-line arguments
+const [,, operation, num1, num2] = process.argv;
+
+// Check if the required arguments are provided
+if (!operation || isNaN(num1) || isNaN(num2)) {
+  console.log('Usage: node calculator.js <operation> <num1> <num2>');
+  console.log('Operations: add, subtract, multiply, divide');
+  process.exit(1);
+}
+
+// Convert the numbers from strings to floats
+const number1 = parseFloat(num1);
+const number2 = parseFloat(num2);
+
+// Perform the requested operation
+switch (operation) {
+  case 'add':
+    console.log(`${number1} + ${number2} = ${number1 + number2}`);
+    break;
+  case 'subtract':
+    console.log(`${number1} - ${number2} = ${number1 - number2}`);
+    break;
+  case 'multiply':
+    console.log(`${number1} * ${number2} = ${number1 * number2}`);
+    break;
+  case 'divide':
+    if (number2 === 0) {
+      console.log('Error: Division by zero is not allowed.');
+    } else {
+      console.log(`${number1} / ${number2} = ${number1 / number2}`);
+    }
+    break;
+  default:
+    console.log('Unknown operation. Use add, subtract, multiply, or divide.');
+    process.exit(1);
+}
